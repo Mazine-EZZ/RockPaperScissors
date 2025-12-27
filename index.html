@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function play() {
+            let input, user_choice, comp_choice;
+    
+            input = prompt("Choose your weapon (R, P, S): ");
+            if (!input) return;
+
+            user_choice = input.toUpperCase().trim();
+    
+            if (user_choice !== "R" && user_choice !== "P" && user_choice !== "S") {
+                alert("Invalid choice! Please use R, P, or S.");
+                return;
+            }
+
+            comp_choice = getCompChoice();
+    
+            alert(getResults(user_choice, comp_choice));            
+        }
+
+        function getCompChoice() {
+            let num = Math.floor(Math.random() * 3);
+
+            if (num === 0) {
+                return "R";
+            } else if (num === 1) {
+                return "P";
+            } else if (num === 2) {
+                return "S";
+            }
+        }
+
+        function getWinner(user, comp) {
+            if (user===comp) return "It's a tie!";
+            
+            let userWins = (user==="R" && comp==="S" 
+                        || user==="P" && comp==="R"
+                        || user==="S" && comp==="P");
+            return userWins ? "You won!" : "Computer won!"
+        }
+
+        function getResults(user, comp) {
+            let fullUser, fullComp; // full name (e.g, Rock, Paper, Scissors)
+            fullUser = getFullName(user);
+            fullComp = getFullName(comp);
+
+            return `You chose ${fullUser}.\nComputer chose ${fullComp}.\n\n${getWinner(user, comp)}.`
+
+        }
+
+        function getFullName(letter) {
+            return letter==="R" ? "Rock" : letter==="P" ? "Paper" : "Scissors";
+        }
+
+        play();
+    </script>
+</body>
+</html>
